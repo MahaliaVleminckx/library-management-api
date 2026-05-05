@@ -13,12 +13,12 @@ SETUP
 CORE
 ===============================
 
-[] Create Book entity
-[] Create Author entity
-[] Create Loan entity
-[] Setup DbContext
-[] Add relationships
-[] Add seed Data
+[x] Create Book entity
+[x] Create Author entity
+[x] Create Loan entity
+[x] Setup DbContext
+[x] Add relationships
+[x] Add seed Data
 
 ===============================
 API
