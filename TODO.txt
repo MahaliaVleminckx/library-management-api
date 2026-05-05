@@ -1,0 +1,74 @@
+TODO - Library
+
+===============================
+SETUP
+===============================
+
+[x] Create API project
+[x] Create Core project
+[x] Create Client project (MVC)
+[x] Setup git flow (master + dev)
+
+===============================
+CORE
+===============================
+
+[] Create Book entity
+[] Create Author entity
+[] Create Loan entity
+[] Setup DbContext
+[] Add relationships
+[] Add seed Data
+
+===============================
+API
+===============================
+
+[] Create DTOs
+[] Create BookController
+[] Create AuthorController
+[] Create LoanController
+[] Create controller for login and register
+[] Setup JWT authentication
+[] Setup roles
+
+===============================
+MVC CLIENT
+===============================
+
+[] Setup HttpClient service
+[] Create Login page
+[] Create Register page
+[] Create Books overview
+[] Create CRUD screens
+[] Store JWT token
+
+===============================
+EXAM REQUIREMENTS CHECK
+===============================
+
+[] Seed 2 users
+[] Seed 2 roles
+[] Add DTOs all entities
+[] Add Swagger JWT support
+[] Add filtering via query params
+[] Add nested endpoints
+[] Ensure API uses only DTOs
+[] Ensure client uses only HTTP requests
+
+===============================
+TESTING
+===============================
+
+[] Test all endpoints in Postman
+[] Export Postman collection
+
+===============================
+DELIVERY
+===============================
+
+[] Merge dev -> master
+[] Record videos
+
+
+
