@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Pri.Ee.Core\Pri.Ee.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>

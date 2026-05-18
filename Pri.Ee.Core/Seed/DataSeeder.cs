@@ -65,9 +65,6 @@ namespace Pri.Ee.Core.Seed
 
                 if (!context.Authors.Any())
                 {
-                    //var author1 = new Author { Name = "Axie Oh" };
-                    //var author2 = new Author { Name = "Lauren Roberts" };
-                    //var author3 = new Author { Name = "Rebecca Yarros" };
 
                     var authors = new List<Author>
                     {
@@ -77,8 +74,6 @@ namespace Pri.Ee.Core.Seed
 
                     };
 
-                    //context.Authors.AddRange(author1, author2, author3);
-                    //await context.SaveChangesAsync();
 
                     context.Authors.AddRange(authors);
                     await context.SaveChangesAsync();
