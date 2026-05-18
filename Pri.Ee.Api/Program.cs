@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pri.Ee.Core.Data;
 using Pri.Ee.Core.Seed;
+using Pri.Ee.Core.Services.Implementations;
+using Pri.Ee.Core.Services.Interface;
 using System.Threading.Tasks;
 internal class Program
 {
@@ -20,6 +22,8 @@ internal class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddScoped<IBookService, BookService>();
 
         var app = builder.Build();
 
