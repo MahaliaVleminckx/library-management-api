@@ -21,6 +21,9 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        builder.Services.AddScoped<IBookService, BookService>();
+        
+
         var app = builder.Build();
 
         using (var scope = app.Services.CreateScope())

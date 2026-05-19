@@ -9,10 +9,11 @@ namespace Pri.Ee.Core.Services.Interface
 {
     public interface IBookService
     {
-        List<Book> GetAll();
-        Book? GetById(int id);
-        void Add(Book book);
-        void Update(Book book);
-        void Delete(int id); 
+        Task<List<BookDto>> GetAllAsync();
+        Task <BookDto?> GetByIdAsync(int id);
+        Task<BookDto> CreateAsync(BookCreateDto dto);
+        Task <bool> UpdateAsync (int id, BookUpdateDto dto);
+        Task <bool> DeleteAsync (int id);
+        
     }
 }

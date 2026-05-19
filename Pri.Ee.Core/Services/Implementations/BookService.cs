@@ -23,7 +23,7 @@ namespace Pri.Ee.Core.Services.Implementations
             return _context.Books.ToList();
         }
 
-        public Book? GetById (int id)
+        public async Task<BookDto?> GetByIdAsync(int id)
         {
             return _context.Books.Find(id);
         }
