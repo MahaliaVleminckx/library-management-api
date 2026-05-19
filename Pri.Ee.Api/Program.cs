@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Pri.Ee.Core.Data;
 using Pri.Ee.Core.Seed;
+using Pri.Ee.Core.Services.Implementations;
+using Pri.Ee.Core.Services.Interface;
 using System.Threading.Tasks;
 internal class Program
 {

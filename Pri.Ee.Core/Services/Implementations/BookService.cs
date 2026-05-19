@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Pri.Ee.Core.Data;
 using Pri.Ee.Core.Entities;
+using Pri.Ee.Core.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pri.Ee.Core.Services.Implementations
 {
@@ -18,36 +20,92 @@ namespace Pri.Ee.Core.Services.Implementations
             _context = context;
         }
 
-        public List<Book> GetAll()
+        public async Task <List<BookDto>> GetAllAsync()
         {
-            return _context.Books.ToList();
+            return await _context.Books
+                .Include (b=> b.Author)
+                .Select(b=> new BookDto
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Description = b.Description,
+                    AuthorName = b.Author.Name
+                })
+                .ToListAsync();
         }
 
         public async Task<BookDto?> GetByIdAsync(int id)
         {
-            return _context.Books.Find(id);
-        }
+            var book = await _context.Books
+                .Include (b=> b.Author)
+                .FirstOrDefaultAsync(b => b.Id == id);
 
-        public void Add(Book book)
-        {
-            _context.Books.Add(book);
-            _context.SaveChanges();
-        }
-
-        public void Update (Book book)
-        {
-            _context.Books.Update(book);
-            _context.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            var book = _context.Books.Find(id);
-            if (book != null)
+            if (book == null)
             {
-                _context.Books.Remove(book);
-                _context.SaveChanges();
+                return null;
             }
+
+            return new BookDto
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                AuthorName = book.Author.Name
+            };
+        }
+
+        public async Task<BookDto> CreateAsync (BookCreateDto dto)
+        {
+            var book = new Book
+            {
+                Title = dto.Title,
+                Description = dto.Description,
+                AuthorId = dto.AuthorId
+            };
+
+            _context.Books.Add(book);
+            await _context.SaveChangesAsync();
+            
+            var author = await _context.Authors.FindAsync(book.AuthorId);
+
+            return new BookDto
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                AuthorName = author?.Name ?? ""
+            };
+        }
+
+        public async Task<bool> UpdateAsync (int id, BookUpdateDto dto)
+        {
+            var book = await _context.Books.FindAsync(id);
+
+            if (book == null)
+            {
+                return false;
+            }
+
+            book.Title = dto.Title;
+            book.Description = dto.Description;
+            book.AuthorId = dto.AuthorId;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+
+            if (book == null)
+            {
+                return false;
+            }
+
+            _context.Books.Remove(book);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

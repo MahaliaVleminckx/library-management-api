@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pri.Ee.Core.DTOs;
 using Pri.Ee.Core.Entities;
 
 namespace Pri.Ee.Core.Services.Interface
