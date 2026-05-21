@@ -1,4 +1,5 @@
 ﻿using Pri.Ee.Core.Entities;
+using Pri.Ee.Core.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Pri.Ee.Core.Services.Interface
 {
     public interface ILoanService
     {
-        List<Loan> GetAll ();
-        Loan? GetById(int id);
-        void Add (Loan loan);
-        void Update (Loan loan);
-        void Delete (int id);
+       Task  <List<LoanDto>> GetAllAsync ();
+        Task <LoanDto?> GetByIdAsync(int id);
+        Task<LoanDto> CreateAsync(LoanCreateDto dto);
+        Task<bool> UpdateAsync (int id, LoanUpdateDto dto);
+        Task<bool> DeleteAsync (int id);
     }
 }

@@ -26,6 +26,7 @@ internal class Program
         builder.Services.AddScoped<IBookService, BookService>();
         builder.Services.AddScoped<IAuthorService, AuthorService>();
         builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<ILoanService, LoanService>();
 
         var app = builder.Build();
 
