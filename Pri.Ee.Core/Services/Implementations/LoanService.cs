@@ -52,6 +52,13 @@ namespace Pri.Ee.Core.Services.Implementations
 
         public async Task<LoanDto> CreateAsync(LoanCreateDto dto)
         {
+            var book = await _context.Books.FindAsync(dto.BookId);
+
+            if (book == null)
+            {
+                return null;
+            }
+
             var loan = new Loan
             {
                 BookId = dto.BookId,
@@ -62,12 +69,11 @@ namespace Pri.Ee.Core.Services.Implementations
             _context.Loans.Add(loan);
             await _context.SaveChangesAsync();
 
-            var book = await _context.Books.FindAsync(dto.BookId);
-
+            
             return new LoanDto
             {
                 Id = loan.Id,
-                BookTitle = book?.Title,
+                BookTitle = book.Title,
                 UserId = loan.UserId,
                 LoanDate = loan.LoanDate,
                 ReturnDate = loan.ReturnDate

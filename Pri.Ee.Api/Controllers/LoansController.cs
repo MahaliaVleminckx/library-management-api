@@ -22,7 +22,7 @@ namespace Pri.Ee.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> getById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
             var loan = await _loanService.GetByIdAsync(id);
 
@@ -32,6 +32,24 @@ namespace Pri.Ee.Api.Controllers
             }
 
             return Ok(loan);
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> Create(LoanCreateDto dto)
+        {
+            var created = await _loanService.CreateAsync(dto);
+
+            if(created == null)
+            {
+                return BadRequest("Book does not exist.");
+            }
+
+            return CreatedAtAction
+                (
+                nameof(GetById),
+                new { id = created.Id },
+                created
+                );
         }
 
         [HttpPut("{id}")]

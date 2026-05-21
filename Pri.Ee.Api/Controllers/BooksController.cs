@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Pri.Ee.Core.DTOs;
 using Pri.Ee.Core.Services;
 using Pri.Ee.Core.Services.Interface;
 
@@ -31,6 +32,43 @@ namespace Pri.Ee.Api.Controllers
                 return NotFound();
             }
             return Ok(book);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(BookCreateDto dto)
+        {
+            var created = await _bookService.CreateAsync(dto);
+
+            return CreatedAtAction
+                (
+                nameof(GetById),
+                new {id = created.Id},
+                created
+                );
+        }
+        [HttpPut ("{id}")]
+        public async Task<IActionResult> Update(int id, BookUpdateDto dto)
+        {
+            var success = await _bookService.UpdateAsync(id, dto);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var success = await _bookService.DeleteAsync(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+            return NoContent() ;
         }
     }
        

@@ -74,11 +74,23 @@ namespace Pri.Ee.Core.Services.Implementations
 
         public async Task<bool> DeleteAsync (int id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories.FindAsync (id);
+              
+
             if (category == null)
             {
                 return false;
             }
+
+            var hasBooks = await _context.Books.AnyAsync(b=> b.CategoryId == id);
+
+            if (hasBooks)
+            {
+                return false;
+            }
+
+
+
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
             return true;

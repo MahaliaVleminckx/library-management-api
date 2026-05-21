@@ -12,7 +12,7 @@ namespace Pri.Ee.Core.Services.Interface
     {
        Task  <List<LoanDto>> GetAllAsync ();
         Task <LoanDto?> GetByIdAsync(int id);
-        Task<LoanDto> CreateAsync(LoanCreateDto dto);
+        Task<LoanDto?> CreateAsync(LoanCreateDto dto);
         Task<bool> UpdateAsync (int id, LoanUpdateDto dto);
         Task<bool> DeleteAsync (int id);
     }

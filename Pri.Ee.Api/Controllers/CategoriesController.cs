@@ -62,7 +62,7 @@ namespace Pri.Ee.Api.Controllers
             var success = await _categoryService.DeleteAsync(id);
             if (!success)
             {
-                return NotFound();
+                return BadRequest("Category cannot be deleted (not found or still used by books)");
             }
             return NoContent();
         }
