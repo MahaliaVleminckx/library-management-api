@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Pri.Ee.Core.Entities;
+using Pri.Ee.Core.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pri.Ee.Core.Services.Implementations
 {
@@ -18,14 +20,68 @@ namespace Pri.Ee.Core.Services.Implementations
             _context = context;
         }
 
-        public List<Author> GetAll()
+        public async Task<List<AuthorDto>> GetAllAsync()
         {
-            return _context.Authors.ToList();
+            return await _context.Authors
+                .Select(a => new AuthorDto
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                })
+                .ToListAsync();
         }
 
-        public Author? GetById(int id)
+        public async Task<AuthorDto?> GetByIdAsync(int id)
         {
-            return _context.Authors.Find(id);
+            return await _context.Authors
+                .Where(a => a.Id == id )
+                .Select (a => new AuthorDto
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                })
+                .FirstOrDefaultAsync();
+        }
+        
+        public async Task<AuthorDto> CreateAsync(AuthorCreateDto dto)
+        {
+            var author = new Author
+            {
+                Name = dto.Name
+            };
+
+            _context.Authors.Add(author);
+            await _context.SaveChangesAsync();
+
+            return new AuthorDto
+            {
+                Id = author.Id,
+                Name = author.Name
+            };
+        }
+
+        public async Task<bool> UpdateAsync (int id, AuthorUpdateDto dto)
+        {
+            var author = await _context.Authors.FindAsync(id);
+            if (author == null)
+            {
+                return false;
+            }
+            author.Name = dto.Name;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var author = await _context.Authors.FindAsync (id);
+            if (author == null)
+            {
+                return false;
+            }
+            _context.Authors.Remove(author);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
