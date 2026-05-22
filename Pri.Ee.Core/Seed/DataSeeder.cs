@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.Json;
 using Pri.Ee.Core.Data;
 using Pri.Ee.Core.Entities;
+using Pri.Ee.Core.Entities.Identity;
 
 namespace Pri.Ee.Core.Seed
 {
     public class DataSeeder
     {
         public static async Task SeedAsync(
-            UserManager<IdentityUser> userManager,
+            UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
             ApplicationDbContext context)
         {
@@ -34,10 +35,13 @@ namespace Pri.Ee.Core.Seed
 
             if (adminUser == null)
             {
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     UserName = "admin",
-                    Email = "admin@test.com"
+                    Email = "admin@test.com",
+                    FirstName = "Admin",
+                    LastName = "User",
+                    BirthDate = new DateTime(2000, 1, 1)
                 };
 
                 await userManager.CreateAsync(user, "Admin123!");
@@ -49,10 +53,13 @@ namespace Pri.Ee.Core.Seed
 
             if (normalUser == null)
             {
-                var user = new IdentityUser
+                var user = new ApplicationUser
                 {
                     UserName = "user",
-                    Email = "user@test.com"
+                    Email = "user@test.com",
+                    FirstName = "Normal",
+                    LastName = "User",
+                    BirthDate = new DateTime(2000, 1, 1)
                 };
 
                 await userManager.CreateAsync(user, "User123!");
@@ -113,7 +120,7 @@ namespace Pri.Ee.Core.Seed
 
                     if (author1 == null || author2 == null || author3 == null)
                     {
-                        throw new Exception("OneOne or more authors not found");
+                        throw new Exception("One or more authors not found");
                     }
 
                     var books = new List<Book>
