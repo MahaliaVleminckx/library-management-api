@@ -15,5 +15,6 @@ namespace Pri.Ee.Core.Services.Interface
         Task <AuthorDto> CreateAsync(AuthorCreateDto dto);
         Task<bool> UpdateAsync(int id, AuthorUpdateDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<BookDto>> GetBooksByAuthorAsync (int authorId);
     }
 }

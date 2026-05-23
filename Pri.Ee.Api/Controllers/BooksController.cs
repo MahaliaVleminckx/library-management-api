@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pri.Ee.Core.DTOs;
 using Pri.Ee.Core.Services;
 using Pri.Ee.Core.Services.Interface;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Pri.Ee.Api.Controllers
 {
@@ -17,13 +19,15 @@ namespace Pri.Ee.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll([FromQuery] string? search, [FromQuery] int? authorId, [FromQuery] int? categoryId)
         {
-            var books = await _bookService.GetAllAsync();
+            var books = await _bookService.GetAllAsync(search, authorId, categoryId);
             return Ok(books);
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var book = await _bookService.GetByIdAsync(id);
@@ -34,6 +38,7 @@ namespace Pri.Ee.Api.Controllers
             return Ok(book);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(BookCreateDto dto)
         {
@@ -46,6 +51,8 @@ namespace Pri.Ee.Api.Controllers
                 created
                 );
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPut ("{id}")]
         public async Task<IActionResult> Update(int id, BookUpdateDto dto)
         {
@@ -59,6 +66,7 @@ namespace Pri.Ee.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -70,6 +78,8 @@ namespace Pri.Ee.Api.Controllers
             }
             return NoContent() ;
         }
+
+        
     }
        
 }

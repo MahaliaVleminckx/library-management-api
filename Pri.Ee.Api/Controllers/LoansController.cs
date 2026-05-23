@@ -2,11 +2,13 @@
 using Pri.Ee.Core.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pri.Ee.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LoansController : ControllerBase
     {
         private readonly ILoanService _loanService;
@@ -14,6 +16,8 @@ namespace Pri.Ee.Api.Controllers
         {
             _loanService = loanService;
         }
+
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -34,6 +38,7 @@ namespace Pri.Ee.Api.Controllers
             return Ok(loan);
         }
 
+        [Authorize(Roles = "User,Admin")]
         [HttpPost]
         public async Task <IActionResult> Create(LoanCreateDto dto)
         {
@@ -52,6 +57,7 @@ namespace Pri.Ee.Api.Controllers
                 );
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, LoanUpdateDto dto)
         {
@@ -63,6 +69,8 @@ namespace Pri.Ee.Api.Controllers
             }
             return NoContent();
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete (int id)
         {

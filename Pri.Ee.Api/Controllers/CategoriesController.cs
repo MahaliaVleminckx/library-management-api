@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pri.Ee.Core.DTOs;
 using Pri.Ee.Core.Services.Interface;
@@ -17,6 +18,7 @@ namespace Pri.Ee.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task <IActionResult> GetAll()
         {
             var categories = await _categoryService.GetAllAsync();
@@ -24,6 +26,7 @@ namespace Pri.Ee.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var category = await _categoryService.GetByIdAsync(id);
@@ -33,6 +36,8 @@ namespace Pri.Ee.Api.Controllers
             }
             return Ok(category);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create (CategoryCreateDto dto)
         {
@@ -45,6 +50,7 @@ namespace Pri.Ee.Api.Controllers
                 );
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, CategoryUpdateDto dto)
         {
@@ -56,6 +62,7 @@ namespace Pri.Ee.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -65,6 +72,18 @@ namespace Pri.Ee.Api.Controllers
                 return BadRequest("Category cannot be deleted (not found or still used by books)");
             }
             return NoContent();
+        }
+        [HttpGet("{id}/books")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetBooksByCategory(int id)
+        {
+            var books = await _categoryService.GetBooksByCategoryAsync(id);
+
+            if (books == null || !books.Any())
+            {
+                return NotFound();
+            }
+            return Ok(books);
         }
     }
 }

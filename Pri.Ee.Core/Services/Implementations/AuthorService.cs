@@ -83,5 +83,21 @@ namespace Pri.Ee.Core.Services.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<List<BookDto>> GetBooksByAuthorAsync(int authorId)
+        {
+            var books = await _context.Books
+                .Where(b=> b.AuthorId == authorId)
+                .Include(b=>b.Author)
+                .ToListAsync();
+
+            return books.Select(b => new BookDto
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Description = b.Description,
+                AuthorName = b.Author.Name
+            }).ToList();
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace Pri.Ee.Core.Services.Interface
         Task<CategoryDto> CreateAsync(CategoryCreateDto dto);
         Task<bool> UpdateAsync(int id, CategoryUpdateDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<BookDto>> GetBooksByCategoryAsync(int categoryId);
     }
 }

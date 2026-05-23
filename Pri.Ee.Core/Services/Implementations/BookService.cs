@@ -8,6 +8,7 @@ using Pri.Ee.Core.Data;
 using Pri.Ee.Core.Entities;
 using Pri.Ee.Core.DTOs;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Pri.Ee.Core.Services.Implementations
 {
@@ -20,18 +21,32 @@ namespace Pri.Ee.Core.Services.Implementations
             _context = context;
         }
 
-        public async Task <List<BookDto>> GetAllAsync()
+        public async Task <List<BookDto>> GetAllAsync(string? search, int? authorId,int? categoryId)
         {
-            return await _context.Books
-                .Include (b=> b.Author)
-                .Select(b=> new BookDto
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Description = b.Description,
-                    AuthorName = b.Author.Name
-                })
-                .ToListAsync();
+            var query = _context.Books
+                .Include(b => b.Author)
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(b => b.Title.Contains(search));
+            }
+            if (authorId.HasValue)
+            {
+                query = query.Where(b => b.AuthorId == authorId);
+            }
+            if (categoryId.HasValue)
+            {
+                query = query.Where(b=> b.CategoryId == categoryId);
+            }
+
+            return await query.Select(b => new BookDto
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Description = b.Description,
+                AuthorName = b.Author.Name
+            }).ToListAsync();
         }
 
         public async Task<BookDto?> GetByIdAsync(int id)

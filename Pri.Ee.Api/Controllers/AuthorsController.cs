@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Pri.Ee.Core.DTOs;
 using Pri.Ee.Core.Services.Interface;
@@ -17,6 +18,7 @@ namespace Pri.Ee.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var authors = await _authorService.GetAllAsync();
@@ -24,6 +26,7 @@ namespace Pri.Ee.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var author = await _authorService.GetByIdAsync(id);
@@ -34,6 +37,7 @@ namespace Pri.Ee.Api.Controllers
             return Ok(author);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(AuthorCreateDto dto)
         {
@@ -47,6 +51,7 @@ namespace Pri.Ee.Api.Controllers
                 );
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, AuthorUpdateDto dto)
         {
@@ -58,6 +63,7 @@ namespace Pri.Ee.Api.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete (int id)
         {
@@ -68,6 +74,20 @@ namespace Pri.Ee.Api.Controllers
             }
             return NoContent();
 
+        }
+
+
+        [HttpGet("{id}/books")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetBooksByAuthor(int id)
+        {
+            var books = await _authorService.GetBooksByAuthorAsync(id);
+
+            if (books == null || !books.Any())
+            {
+                return NotFound();
+            }
+            return Ok(books);
         }
     }
     
