@@ -1,0 +1,31 @@
+﻿@model Pri.Ee.Client.Models.Authors.AuthorViewModel
+
+<h2 class="page-title mb-4">Create Author</h2>
+
+<div class="form-card">
+
+    <form method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-create-custom w-100">
+            Create Author
+        </button>
+
+    </form>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @ViewBag.Error
+        </div>
+    }
+
+</div>
+
+<a href="/Authors" class="btn btn-back mt-4">
+    ← Back to Authors
+</a>

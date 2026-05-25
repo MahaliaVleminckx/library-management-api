@@ -1,0 +1,46 @@
+﻿@model Pri.Ee.Client.Models.Loans.CreateLoanViewModel
+
+<h2 class="page-title mb-4">Create Loan</h2>
+
+<div class="form-card">
+
+    <form method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Book Id</label>
+            <input asp-for="BookId" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">User Id</label>
+            <input asp-for="UserId" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Loan Date</label>
+            <input asp-for="LoanDate" type="date" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Return Date</label>
+            <input asp-for="ReturnDate" type="date" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-create-custom w-100">
+            Create Loan
+        </button>
+
+    </form>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @ViewBag.Error
+        </div>
+    }
+
+</div>
+
+<a href="/Loans" class="btn btn-back mt-4">
+    ← Back to Loans
+</a>

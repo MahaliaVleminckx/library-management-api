@@ -1,0 +1,66 @@
+﻿@model Pri.Ee.Client.Models.RegisterViewModel
+
+<div class="register-container">
+
+    <div class="register-card">
+
+        <h2 class="register-title mb-3">Register</h2>
+
+        <div class="alert register-info small">
+            <strong>Password requirements:</strong>
+            <ul class="mb-0">
+                <li>At least 6–8 characters</li>
+                <li>At least 1 uppercase letter</li>
+                <li>At least 1 number</li>
+                <li>At least 1 special character (! # $ %)</li>
+            </ul>
+        </div>
+
+        <form method="post">
+
+            <div class="mb-2">
+                <label>UserName</label>
+                <input asp-for="Username" class="form-control" />
+            </div>
+
+            <div class="mb-2">
+                <label>First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+            </div>
+
+            <div class="mb-2">
+                <label>Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+            </div>
+
+            <div class="mb-2">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+
+            <div class="mb-2">
+                <label>Password</label>
+                <input asp-for="Password" type="password" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label>Birthdate</label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-register w-100">
+                Register
+            </button>
+
+        </form>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3">
+                @ViewBag.Error
+            </div>
+        }
+
+    </div>
+
+</div>

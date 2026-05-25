@@ -1,0 +1,76 @@
+﻿@model List<Pri.Ee.Client.Models.Loans.LoanViewModel>
+
+<h2 class="page-title mb-4">Loans</h2>
+
+<div class="table-container">
+
+    <table class="table table-custom">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Book</th>
+                <th>User</th>
+                <th>Loan Date</th>
+                <th>Return Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var loan in Model)
+            {
+                <tr>
+                    <td>@loan.Id</td>
+
+                    <td class="book-title">
+                        @loan.BookId
+                    </td>
+
+                    <td>
+                        @loan.UserId
+                    </td>
+
+                    <td>
+                        @loan.LoanDate.ToShortDateString()
+                    </td>
+
+                    <td>
+                        @(loan.ReturnDate.HasValue
+                            ? loan.ReturnDate.Value.ToShortDateString()
+                            : "Not returned")
+                    </td>
+
+                    <td class="actions-cell">
+
+                        <a class="btn btn-sm btn-action btn-info-custom"
+                           href="/Loans/Details/@loan.Id">
+                            Details
+                        </a>
+
+                        <a class="btn btn-sm btn-action btn-edit-custom"
+                           href="/Loans/Edit/@loan.Id">
+                            Edit
+                        </a>
+
+                        <a class="btn btn-sm btn-action btn-delete-custom"
+                           href="/Loans/Delete/@loan.Id"
+                           onclick="return confirm('Are you sure?')">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+<p>
+    <a class="btn btn-create-custom mt-3"
+       href="/Loans/Create">
+        + Create New Loan
+    </a>
+</p>

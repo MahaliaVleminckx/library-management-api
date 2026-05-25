@@ -22,27 +22,41 @@ namespace Pri.Ee.Core.Services.Implementations
         public async Task<List<LoanDto>> GetAllAsync()
         {
             return await _context.Loans
-                .Include(l => l.Book)
-                .Select(l => new LoanDto
+                .Include(l=> l.Book)
+                .Include(l => l.User)
+                .Select (l => new LoanDto
                 {
                     Id = l.Id,
                     BookTitle = l.Book.Title,
+                    UserName = l.User.UserName,
                     UserId = l.UserId,
                     LoanDate = l.LoanDate,
                     ReturnDate = l.ReturnDate
-                })
-                .ToListAsync();
+                }).ToListAsync();
+            //return await _context.Loans
+            //    .Include(l => l.Book)
+            //    .Select(l => new LoanDto
+            //    {
+            //        Id = l.Id,
+            //        BookTitle = l.Book.Title,
+            //        UserId = l.UserId,
+            //        LoanDate = l.LoanDate,
+            //        ReturnDate = l.ReturnDate
+            //    })
+            //    .ToListAsync();
         }
 
         public async Task<LoanDto?> GetByIdAsync(int id)
         {
             return await _context.Loans
                 .Include(l => l.Book)
+                .Include(l => l.User)
                 .Where(l => l.Id == id)
                 .Select(l => new LoanDto
                 {
                     Id = l.Id,
                     BookTitle = l.Book.Title,
+                    UserName = l.User.UserName,
                     UserId = l.UserId,
                     LoanDate = l.LoanDate,
                     ReturnDate = l.ReturnDate
@@ -53,6 +67,7 @@ namespace Pri.Ee.Core.Services.Implementations
         public async Task<LoanDto> CreateAsync(LoanCreateDto dto)
         {
             var book = await _context.Books.FindAsync(dto.BookId);
+            var user = await _context.Users.FindAsync(dto.UserId);
 
             if (book == null)
             {

@@ -1,22 +1,413 @@
-html {
-  font-size: 14px;
+/*Layout Navigatie*/
+
+/*===================================================================*/
+.navbar-custom {
+    background-color: #6B403C;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+    .navbar-custom .navbar-brand,
+    .navbar-custom .nav-link {
+        color: white !important;
+        font-weight: 500;
+    }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
+        .navbar-custom .nav-link:hover {
+            color: #ADEBB3 !important;
+        }
 
 body {
-  margin-bottom: 60px;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+.content-wrapper {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/*===================================================================*/
+/*Layout Login*/
+.login-title {
+    text-align: left;
+    color: #6B403C;
+    font-weight: 600;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.login-card {
+    width: 450px;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.form-control {
+    border-radius: 12px;
+}
+
+.btn-login {
+    background-color: #ADEBB3;
+    border: none;
+    color: #212529;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+    .btn-login:hover {
+        background-color: #95d89c;
+    }
+
+.login-card label {
+    color: #6B403C;
+    font-weight: 500;
+}
+/*===================================================================*/
+/*Layout Buttons*/
+.btn-primary {
+    background-color: #ADEBB3;
+    border-color: #ADEBB3;
+    color: #212529;
+    border-radius: 12px;
+}
+
+    .btn-primary:hover {
+        background-color: #95d89c;
+        border-color: #95d89c;
+    }
+
+.btn-danger {
+    background-color: #FF847A;
+    border-color: #FF847A;
+    border-radius: 12px;
+}
+
+/*===================================================================*/
+/*Layout Register*/
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+.register-card {
+    width: 500px;
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.register-title {
+    text-align: left;
+    color: #6B403C;
+    font-weight: 600;
+}
+
+.register-card label {
+    color: #6B403C;
+    font-weight: 500;
+}
+
+.btn-register {
+    background-color: #EBAEE6;
+    border: none;
+    color: #212529;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+    .btn-register:hover {
+        background-color: #d99ad4;
+    }
+
+.register-info {
+    background-color: #EBAEE6;
+    border: none;
+    color: #6B403C;
+    border-radius: 12px;
+}
+
+/*===================================================================*/
+/*Layout Dashboard*/
+
+.dashboard-title {
+    color: #6B403C;
+    font-weight: 600;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    transition: all 0.25s ease;
+    text-align: left;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .dashboard-card h5 {
+        color: #6B403C;
+        margin-bottom: 15px;
+    }
+
+.btn-dashboard {
+    background-color: #ADEBB3;
+    border: none;
+    color: #212529;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 6px 14px;
+}
+
+    .btn-dashboard:hover {
+        background-color: #95d89c;
+    }
+
+.admin-card {
+    border-left: 5px solid #FF847A;
+}
+
+.btn-admin {
+    background-color: #FF847A;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 6px 14px;
+}
+
+    .btn-admin:hover {
+        background-color: #e86f65;
+    }
+
+/*===================================================================*/
+/*Layout Tables*/
+
+.page-title {
+    color: #6B403C;
+    font-weight: 600;
+}
+
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .table-custom thead {
+        background-color: #6B403C;
+        color: white;
+    }
+
+    .table-custom th,
+    .table-custom td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table-custom tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+.actions-cell {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn-info-custom {
+    background-color: #EBAEE6;
+    color: #212529;
+}
+
+    .btn-info-custom:hover {
+        background-color: #d89dd6;
+    }
+
+.btn-edit-custom {
+    background-color: #ADEBB3;
+    color: #212529;
+}
+
+    .btn-edit-custom:hover {
+        background-color: #95d89c;
+    }
+
+.btn-delete-custom {
+    background-color: #FF847A;
+    color: white;
+}
+
+    .btn-delete-custom:hover {
+        background-color: #e86f65;
+    }
+
+.btn-create-custom {
+    background-color: #6B403C;
+    color: white;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-weight: 600;
+    border: none;
+}
+
+    .btn-create-custom:hover {
+        background-color: #57312e;
+    }
+
+.btn-action {
+    border-radius: 10px;
+    padding: 6px 12px;
+    font-weight: 600;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Titels */
+.book-title {
+    font-weight: 700; 
+    font-size: 1.1rem;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+}
+
+   
+    .book-title::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 18px;
+        background-color: #ADEBB3;
+        margin-right: 10px;
+        border-radius: 4px;
+        vertical-align: middle;
+    }
+
+    .book-title:hover {
+        color: #FF847A;
+        transform: translateX(2px);
+    }
+
+/*===================================================================*/
+/*Layout details*/
+
+.details-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+    .details-row:last-child {
+        border-bottom: none;
+    }
+    .details-row .value {
+        white-space: pre-wrap;
+        word-break: break-word; 
+        max-width: 90%;
+    }
+
+.label {
+    font-weight: 700;
+    color: #6B403C;
+}
+
+.value {
+    color: #212529;
+    font-weight: 500;
+}
+
+.btn-back {
+    background-color: #6B403C;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+}
+
+    .btn-back:hover {
+        background-color: #57312e;
+    }
+
+/*===================================================================*/
+/*Layout create form*/
+
+
+.form-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    max-width: 600px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #6B403C;
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+    .form-control:focus {
+        border-color: #ADEBB3;
+        box-shadow: 0 0 0 0.2rem rgba(173,235,179,0.25);
+    }
+
+/*===================================================================*/
+/*Layout Edit form*/
+
+.btn-edit-custom {
+    background-color: #ADEBB3;
+    color: #212529;
+    border-radius: 12px;
+    font-weight: 600;
+    border: none;
+}
+
+    .btn-edit-custom:hover {
+        background-color: #95d89c;
+    }
+
+.form-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    max-width: 600px;
 }

@@ -1,0 +1,59 @@
+﻿@model List<Pri.Ee.Client.Models.Categories.CategoryViewModel>
+
+<h2 class="page-title mb-4">Categories</h2>
+
+<div class="table-container">
+
+    <table class="table table-custom">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Id</td>
+
+                    <td class="book-title">
+                        @category.Name
+                    </td>
+
+                    <td class="actions-cell">
+
+                        <a class="btn btn-sm btn-action btn-info-custom"
+                           href="/Categories/Details/@category.Id">
+                            Details
+                        </a>
+
+                        <a class="btn btn-sm btn-action btn-edit-custom"
+                           href="/Categories/Edit/@category.Id">
+                            Edit
+                        </a>
+
+                        <a class="btn btn-sm btn-action btn-delete-custom"
+                           href="/Categories/Delete/@category.Id"
+                           onclick="return confirm('Are you sure?')">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+<p>
+    <a class="btn btn-create-custom mt-3"
+       href="/Categories/Create">
+        + Create New Category
+    </a>
+</p>

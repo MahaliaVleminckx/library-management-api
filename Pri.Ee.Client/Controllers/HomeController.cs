@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pri.Ee.Client.Models;
 using System.Diagnostics;
@@ -13,9 +14,14 @@ namespace Pri.Ee.Client.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+           return View();
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,30 @@
+﻿@model Pri.Ee.Client.Models.Books.BookViewModel
+
+<h2 class="page-title mb-4">Book Details</h2>
+
+<div class="details-card">
+
+    <div class="details-row">
+        <span class="label">Id</span>
+        <span class="value">@Model.Id</span>
+    </div>
+
+    <div class="details-row">
+        <span class="label">Title</span>
+        <span class="value book-title">@Model.Title</span>
+    </div>
+
+    <div class="details-row">
+        <span class="label">Description</span>
+        <span class="value">@Model.Description</span>
+    </div>
+
+    <div class="details-row">
+        <span class="label">Author</span>
+        <span class="value">@Model.AuthorName</span>
+    </div>
+
+</div>
+
+<a href="/Books" class="btn btn-back mt-4">← Back to Books</a>
+

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pri.Ee.Core.Entities.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Pri.Ee.Core.Entities
         public int BookId { get; set; }
         public Book Book { get; set; }
         public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
         public DateTime LoanDate { get; set; }
         public DateTime? ReturnDate {  get; set; }
     }

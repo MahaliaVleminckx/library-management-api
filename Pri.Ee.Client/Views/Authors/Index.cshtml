@@ -1,0 +1,61 @@
+﻿@model List<Pri.Ee.Client.Models.Authors.AuthorViewModel>
+
+<h2 class="page-title mb-4">Authors</h2>
+
+<div class="table-container">
+
+    <table class="table table-custom">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var author in Model)
+            {
+                <tr>
+                    <td>@author.Id</td>
+
+                    <td class="book-title">
+                        @author.Name
+                    </td>
+
+                    <td class="actions-cell">
+
+                        <a class="btn btn-sm btn-action btn-info-custom"
+                           href="/Authors/Details/@author.Id">
+                            Details
+                        </a>
+
+                        <a class="btn btn-sm btn-action btn-edit-custom"
+                           href="/Authors/Edit/@author.Id">
+                            Edit
+                        </a>
+
+                        <a class="btn btn-sm btn-action btn-delete-custom"
+                           href="/Authors/Delete/@author.Id"
+                           onclick="return confirm('Are you sure?')">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>
+
+<p>
+    <a class="btn btn-create-custom mt-3"
+       href="/Authors/Create">
+        + Create New Author
+    </a>
+</p>
+
+

@@ -1,8 +1,46 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<h2 class="dashboard-title mb-4">Dashboard</h2>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <div class="row g-3">
+
+        <div class="col-md-3">
+            <div class="dashboard-card">
+                <h5>Books</h5>
+                <a href="/Books" class="btn btn-dashboard">Open</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card">
+                <h5>Authors</h5>
+                <a href="/Authors" class="btn btn-dashboard">Open</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card">
+                <h5>Categories</h5>
+                <a href="/Categories" class="btn btn-dashboard">Open</a>
+            </div>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col-md-3">
+                <div class="dashboard-card admin-card">
+                    <h5>Loans</h5>
+                    <a href="/Loans" class="btn btn-admin">Manage</a>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <p>Please login to access the system.</p>
+        <a href="/Auth/Login" class="btn btn-dashboard">Login</a>
+    </div>
+}

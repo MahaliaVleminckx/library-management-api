@@ -1,0 +1,31 @@
+﻿@model Pri.Ee.Client.Models.Categories.CategoryViewModel
+
+<h2 class="page-title mb-4">Create Category</h2>
+
+<div class="form-card">
+
+    <form method="post">
+
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input asp-for="Name" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-create-custom w-100">
+            Create Category
+        </button>
+
+    </form>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @ViewBag.Error
+        </div>
+    }
+
+</div>
+
+<a href="/Categories" class="btn btn-back mt-4">
+    ← Back to Categories
+</a>
