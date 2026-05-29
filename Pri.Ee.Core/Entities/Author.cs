@@ -11,7 +11,6 @@ namespace Pri.Ee.Core.Entities
        public int Id { get; set; }
         public string Name { get; set; }
 
-        //Relationship
         public List<Book> Books { get; set; }
     }
 }

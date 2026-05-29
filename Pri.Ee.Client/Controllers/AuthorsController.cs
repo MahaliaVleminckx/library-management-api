@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pri.Ee.Client.Models.Authors;
 using Pri.Ee.Client.Models.Books;
 using Pri.Ee.Client.Services;
@@ -26,11 +27,13 @@ namespace Pri.Ee.Client.Controllers
             return View(author);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(AuthorViewModel model)
         {
@@ -49,6 +52,7 @@ namespace Pri.Ee.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             var author = await _authorService.GetById(id);
@@ -59,6 +63,7 @@ namespace Pri.Ee.Client.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CreateAuthorViewModel model)
         {
@@ -72,6 +77,7 @@ namespace Pri.Ee.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _authorService.Delete(id);

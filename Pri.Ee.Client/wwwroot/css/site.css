@@ -1,19 +1,15 @@
-/*Layout Navigatie*/
-
-/*===================================================================*/
-.navbar-custom {
+﻿ .navbar-custom {
     background-color: #6B403C;
 }
 
-    .navbar-custom .navbar-brand,
-    .navbar-custom .nav-link {
-        color: white !important;
-        font-weight: 500;
-    }
+.navbar-custom .navbar-brand, .navbar-custom .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
 
-        .navbar-custom .nav-link:hover {
-            color: #ADEBB3 !important;
-        }
+    .navbar-custom .nav-link:hover {
+        color: #ADEBB3 !important;
+    }
 
 body {
     background-color: #f8f9fa;
@@ -26,9 +22,9 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
 }
-
 /*===================================================================*/
 /*Layout Login*/
+
 .login-title {
     text-align: left;
     color: #6B403C;
@@ -70,8 +66,9 @@ body {
     color: #6B403C;
     font-weight: 500;
 }
-/*===================================================================*/
+/*===================================================================*/ 
 /*Layout Buttons*/
+
 .btn-primary {
     background-color: #ADEBB3;
     border-color: #ADEBB3;
@@ -89,8 +86,7 @@ body {
     border-color: #FF847A;
     border-radius: 12px;
 }
-
-/*===================================================================*/
+/*===================================================================*/ 
 /*Layout Register*/
 
 .register-container {
@@ -137,8 +133,7 @@ body {
     color: #6B403C;
     border-radius: 12px;
 }
-
-/*===================================================================*/
+/*===================================================================*/ 
 /*Layout Dashboard*/
 
 .dashboard-title {
@@ -194,8 +189,7 @@ body {
     .btn-admin:hover {
         background-color: #e86f65;
     }
-
-/*===================================================================*/
+/*===================================================================*/ 
 /*Layout Tables*/
 
 .page-title {
@@ -213,6 +207,8 @@ body {
 .table-custom {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+      
 }
 
     .table-custom thead {
@@ -220,8 +216,7 @@ body {
         color: white;
     }
 
-    .table-custom th,
-    .table-custom td {
+    .table-custom th, .table-custom td {
         padding: 12px;
         border-bottom: 1px solid #eee;
     }
@@ -237,7 +232,14 @@ body {
     flex-wrap: wrap;
 }
 
+.table-custom td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* Buttons */
+
 .btn-info-custom {
     background-color: #EBAEE6;
     color: #212529;
@@ -286,16 +288,15 @@ body {
     text-decoration: none;
     display: inline-block;
 }
-
 /* Titels */
+
 .book-title {
-    font-weight: 700; 
+    font-weight: 700;
     font-size: 1.1rem;
     position: relative;
     transition: all 0.2s ease-in-out;
 }
 
-   
     .book-title::before {
         content: "";
         display: inline-block;
@@ -311,8 +312,7 @@ body {
         color: #FF847A;
         transform: translateX(2px);
     }
-
-/*===================================================================*/
+/*===================================================================*/ 
 /*Layout details*/
 
 .details-card {
@@ -332,9 +332,10 @@ body {
     .details-row:last-child {
         border-bottom: none;
     }
+
     .details-row .value {
         white-space: pre-wrap;
-        word-break: break-word; 
+        word-break: break-word;
         max-width: 90%;
     }
 
@@ -361,10 +362,8 @@ body {
     .btn-back:hover {
         background-color: #57312e;
     }
-
 /*===================================================================*/
 /*Layout create form*/
-
 
 .form-card {
     background: white;
@@ -388,7 +387,6 @@ body {
         border-color: #ADEBB3;
         box-shadow: 0 0 0 0.2rem rgba(173,235,179,0.25);
     }
-
 /*===================================================================*/
 /*Layout Edit form*/
 

@@ -38,19 +38,24 @@ namespace Pri.Ee.Client.Services
             }
             return await _http.GetFromJsonAsync<AuthorViewModel>($"api/authors/{id}");
         }
-
         public async Task<bool> Create(AuthorViewModel author)
         {
             var token = _contextAccessor.HttpContext.Session.GetString("JWT");
 
+            var request = new HttpRequestMessage(HttpMethod.Post, "api/authors");
+            request.Content = JsonContent.Create(author);
+
             if (!string.IsNullOrEmpty(token))
             {
-                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Headers.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
             }
 
-            var response = await _http.PostAsJsonAsync("api/authors", author);
+            var response = await _http.SendAsync(request);
+
             return response.IsSuccessStatusCode;
         }
+
 
         public async Task<bool> Update(int id, CreateAuthorViewModel author)
         {

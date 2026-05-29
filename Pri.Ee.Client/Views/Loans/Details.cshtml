@@ -11,12 +11,12 @@
 
     <div class="details-row">
         <span class="label">Book</span>
-        <span class="value">@Model.BookId</span>
+        <span class="value">@(Model.BookTitle ?? "Unknown book")</span>
     </div>
 
     <div class="details-row">
         <span class="label">User</span>
-        <span class="value">@Model.UserId</span>
+        <span class="value">@(Model.UserName ?? Model.UserId)</span>
     </div>
 
     <div class="details-row">
@@ -35,7 +35,6 @@
 
 </div>
 
-<a href="/Loans" class="btn btn-back mt-4">
+<a asp-controller="Loans" asp-action="Index" class="btn btn-back mt-4">
     ← Back to Loans
 </a>
-

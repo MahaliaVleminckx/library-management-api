@@ -4,26 +4,20 @@
 
 <div class="form-card">
 
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <form method="post">
 
         <div class="mb-3">
             <label class="form-label">Book Id</label>
             <input asp-for="BookId" class="form-control" />
+            <span asp-validation-for="BookId" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
             <label class="form-label">User Id</label>
             <input asp-for="UserId" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Loan Date</label>
-            <input asp-for="LoanDate" type="date" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Return Date</label>
-            <input asp-for="ReturnDate" type="date" class="form-control" />
+            <span asp-validation-for="UserId" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-create-custom w-100">
@@ -41,6 +35,10 @@
 
 </div>
 
-<a href="/Loans" class="btn btn-back mt-4">
+<a asp-controller="Loans" asp-action="Index" class="btn btn-back mt-4">
     ← Back to Loans
 </a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

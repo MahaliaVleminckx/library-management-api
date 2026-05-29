@@ -29,12 +29,6 @@ builder.Services.AddHttpClient<LoanService>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:44362/");
 });
-//builder.Services.AddAuthentication("Cookies").AddCookie(
-//    "Cookies", options =>
-//    {
-//        options.LoginPath = "/Auth/Login";
-//        options.LogoutPath = "/Auth/Logout";
-//    });
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
     options.LoginPath = "/Auth/Login";

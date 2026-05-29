@@ -1,6 +1,12 @@
 ﻿@model List<Pri.Ee.Client.Models.Books.BookViewModel>
+@using System.Security.Claims
 
 <h2 class="page-title mb-4">Books</h2>
+
+@{
+    var isAdmin = User.IsInRole("Admin");
+ }
+
 
 <div class="table-container">
 
@@ -31,14 +37,18 @@
                         <a class="btn btn-sm btn-action btn-info-custom"
                            href="/Books/Details/@book.Id">Details</a>
 
+                        @if (isAdmin)
+                        {
                         <a class="btn btn-sm btn-action btn-edit-custom"
                            href="/Books/Edit/@book.Id">Edit</a>
+
 
                         <a class="btn btn-sm btn-action btn-delete-custom"
                            href="/Books/Delete/@book.Id"
                            onclick="return confirm('Are you sure?')">
                             Delete
                         </a>
+                        }
                     </td>
                 </tr>
             }
@@ -47,10 +57,12 @@
     </table>
 
 </div>
-
+@if (isAdmin)
+{
 <p>
     <a class="btn btn-create-custom mt-3" href="/Books/Create">
         + Create New Book
     </a>
 </p>
+}
 

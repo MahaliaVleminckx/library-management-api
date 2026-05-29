@@ -1,8 +1,9 @@
-﻿using Pri.Ee.Core.DTOs;
-using Pri.Ee.Core.Services.Interface;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using Pri.Ee.Core.DTOs;
+using Pri.Ee.Core.Services.Interface;
 
 namespace Pri.Ee.Api.Controllers
 {
@@ -12,12 +13,13 @@ namespace Pri.Ee.Api.Controllers
     public class LoansController : ControllerBase
     {
         private readonly ILoanService _loanService;
+
         public LoansController(ILoanService loanService)
         {
             _loanService = loanService;
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -30,59 +32,51 @@ namespace Pri.Ee.Api.Controllers
         {
             var loan = await _loanService.GetByIdAsync(id);
 
-            if(loan == null)
-            {
+            if (loan == null)
                 return NotFound();
-            }
 
             return Ok(loan);
         }
 
         [Authorize(Roles = "User,Admin")]
         [HttpPost]
-        public async Task <IActionResult> Create(LoanCreateDto dto)
+        public async Task<IActionResult> Create([FromBody] LoanCreateDto dto)
         {
             var created = await _loanService.CreateAsync(dto);
 
-            if(created == null)
-            {
-                return BadRequest("Book does not exist.");
-            }
+            if (created == null)
+                return BadRequest("Book or User does not exist.");
 
-            return CreatedAtAction
-                (
+            return CreatedAtAction(
                 nameof(GetById),
                 new { id = created.Id },
                 created
-                );
+            );
         }
 
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, LoanUpdateDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] LoanUpdateDto dto)
         {
             var success = await _loanService.UpdateAsync(id, dto);
 
-            if(!success)
-            {
+            if (!success)
                 return NotFound();
-            }
+
             return NoContent();
         }
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete (int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var success = await _loanService.DeleteAsync(id);
 
             if (!success)
-            {
                 return NotFound();
-            }
 
             return NoContent();
         }
-        
+
     }
 }

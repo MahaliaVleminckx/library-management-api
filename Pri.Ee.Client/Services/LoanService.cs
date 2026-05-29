@@ -1,4 +1,6 @@
-﻿using Pri.Ee.Client.Models.Categories;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Pri.Ee.Client.Models.Books;
+using Pri.Ee.Client.Models.Categories;
 using Pri.Ee.Client.Models.Loans;
 using System.Net.Http.Headers;
 
@@ -15,80 +17,79 @@ namespace Pri.Ee.Client.Services
             _contextAccessor = contextAccessor;
         }
 
-        public async Task<List<LoanViewModel>> GetAll()
+        private string? GetToken()
         {
-            var token = _contextAccessor.HttpContext.Session.GetString("JWT");
-            var request = new HttpRequestMessage(HttpMethod.Get, "api/loans");
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-            var response = await _http.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            return await response.Content.ReadFromJsonAsync<List<LoanViewModel>>();
-
+            return _contextAccessor.HttpContext?.Session.GetString("JWT");
         }
 
-        public async Task<LoanViewModel> GetById(int id)
+        private HttpRequestMessage CreateRequest(HttpMethod method, string url)
         {
-            var token = _contextAccessor.HttpContext.Session.GetString("JWT");
-            var request = new HttpRequestMessage(HttpMethod.Get, $"api/loans/{id}");
+            var request = new HttpRequestMessage(method, url);
 
-            if (!string.IsNullOrEmpty(token))
+            var token = GetToken();
+            if (!string.IsNullOrWhiteSpace(token))
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                request.Headers.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
             }
+
+            return request;
+        }
+
+        public async Task<List<LoanViewModel>> GetAll()
+        {
+            var request = CreateRequest(HttpMethod.Get, "api/loans");
+
             var response = await _http.SendAsync(request);
             response.EnsureSuccessStatusCode();
+
+            var data = await response.Content.ReadFromJsonAsync<List<LoanViewModel>>();
+            return data ?? new List<LoanViewModel>();
+        }
+
+        public async Task<LoanViewModel?> GetById(int id)
+        {
+            var request = CreateRequest(HttpMethod.Get, $"api/loans/{id}");
+
+            var response = await _http.SendAsync(request);
+            response.EnsureSuccessStatusCode();
+
             return await response.Content.ReadFromJsonAsync<LoanViewModel>();
         }
 
-        public async Task<bool> Create(CreateLoanViewModel loan)
+        public async Task<bool> Create(CreateLoanViewModel model)
         {
-            var token = _contextAccessor.HttpContext.Session.GetString("JWT");
-            var request = new HttpRequestMessage(HttpMethod.Post, "api/loans")
-            {
-                Content = JsonContent.Create(loan)
-            };
-
-            if (!string.IsNullOrEmpty(token))
-            {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
+            var request = CreateRequest(HttpMethod.Post, "api/loans");
+            request.Content = JsonContent.Create(model);
 
             var response = await _http.SendAsync(request);
 
-            var error = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"STATUS: {response.StatusCode}");
-            Console.WriteLine($"BODY: {error}");
+            var body = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("STATUS: " + response.StatusCode);
+            Console.WriteLine("BODY: " + body);
 
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> Update(int id, CreateLoanViewModel loan)
+        public async Task<bool> Update(int id, UpdateLoanViewModel model)
         {
-            var token = _contextAccessor.HttpContext.Session.GetString("JWT");
+            var request = CreateRequest(HttpMethod.Put, $"api/loans/{id}");
+            request.Content = JsonContent.Create(model);
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
+            var response = await _http.SendAsync(request);
 
-            var response = await _http.PutAsJsonAsync($"api/loans/{id}", loan);
+            var body = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("STATUS: " + response.StatusCode);
+            Console.WriteLine("BODY: " + body);
+
             return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> Delete(int id)
         {
-            var token = _contextAccessor.HttpContext.Session.GetString("JWT");
+            var request = CreateRequest(HttpMethod.Delete, $"api/loans/{id}");
 
-            if (!string.IsNullOrEmpty(token))
-            {
-                _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            }
-
-            var response = await _http.DeleteAsync($"api/loans/{id}");
+            var response = await _http.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
     }

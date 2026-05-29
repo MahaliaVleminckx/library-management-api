@@ -45,6 +45,8 @@ namespace Pri.Ee.Core.Services.Implementations
                 Id = b.Id,
                 Title = b.Title,
                 Description = b.Description,
+                AuthorId = b.AuthorId,        
+                CategoryId = b.CategoryId,
                 AuthorName = b.Author.Name
             }).ToListAsync();
         }
@@ -65,6 +67,8 @@ namespace Pri.Ee.Core.Services.Implementations
                 Id = book.Id,
                 Title = book.Title,
                 Description = book.Description,
+                AuthorId = book.AuthorId,
+                CategoryId = book.CategoryId,
                 AuthorName = book.Author.Name
             };
         }
@@ -75,7 +79,8 @@ namespace Pri.Ee.Core.Services.Implementations
             {
                 Title = dto.Title,
                 Description = dto.Description,
-                AuthorId = dto.AuthorId
+                AuthorId = dto.AuthorId,
+                CategoryId = dto.CategoryId
             };
 
             _context.Books.Add(book);
@@ -88,7 +93,9 @@ namespace Pri.Ee.Core.Services.Implementations
                 Id = book.Id,
                 Title = book.Title,
                 Description = book.Description,
-                AuthorName = author?.Name ?? ""
+                AuthorName = author?.Name ?? "",
+                AuthorId = book.AuthorId,
+                CategoryId = book.CategoryId
             };
         }
 
@@ -104,6 +111,7 @@ namespace Pri.Ee.Core.Services.Implementations
             book.Title = dto.Title;
             book.Description = dto.Description;
             book.AuthorId = dto.AuthorId;
+            book.CategoryId = dto.CategoryId;
 
             await _context.SaveChangesAsync();
             return true;

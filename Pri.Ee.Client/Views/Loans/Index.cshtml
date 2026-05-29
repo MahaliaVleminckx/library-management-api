@@ -24,11 +24,11 @@
                     <td>@loan.Id</td>
 
                     <td class="book-title">
-                        @loan.BookId
+                        @(loan.BookTitle ?? "Unknown book")
                     </td>
 
                     <td>
-                        @loan.UserId
+                        @(loan.UserName ?? loan.UserId)
                     </td>
 
                     <td>
@@ -44,17 +44,23 @@
                     <td class="actions-cell">
 
                         <a class="btn btn-sm btn-action btn-info-custom"
-                           href="/Loans/Details/@loan.Id">
+                           asp-controller="Loans"
+                           asp-action="Details"
+                           asp-route-id="@loan.Id">
                             Details
                         </a>
 
                         <a class="btn btn-sm btn-action btn-edit-custom"
-                           href="/Loans/Edit/@loan.Id">
+                           asp-controller="Loans"
+                           asp-action="Edit"
+                           asp-route-id="@loan.Id">
                             Edit
                         </a>
 
                         <a class="btn btn-sm btn-action btn-delete-custom"
-                           href="/Loans/Delete/@loan.Id"
+                           asp-controller="Loans"
+                           asp-action="Delete"
+                           asp-route-id="@loan.Id"
                            onclick="return confirm('Are you sure?')">
                             Delete
                         </a>
@@ -70,7 +76,8 @@
 
 <p>
     <a class="btn btn-create-custom mt-3"
-       href="/Loans/Create">
+       asp-controller="Loans"
+       asp-action="Create">
         + Create New Loan
     </a>
 </p>

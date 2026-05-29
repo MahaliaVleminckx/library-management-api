@@ -24,44 +24,44 @@ CORE
 API
 ===============================
 
-[] Create DTOs
-[] Create BookController
-[] Create AuthorController
-[] Create LoanController
-[] Create controller for login and register
-[] Setup JWT authentication
-[] Setup roles
+[x] Create DTOs
+[x] Create BookController
+[x] Create AuthorController
+[x] Create LoanController
+[x] Create controller for login and register
+[x] Setup JWT authentication
+[x] Setup roles
 
 ===============================
 MVC CLIENT
 ===============================
 
-[] Setup HttpClient service
-[] Create Login page
-[] Create Register page
-[] Create Books overview
-[] Create CRUD screens
-[] Store JWT token
+[x] Setup HttpClient service
+[x] Create Login page
+[x] Create Register page
+[x] Create Books overview
+[x] Create CRUD screens
+[x] Store JWT token
 
 ===============================
 EXAM REQUIREMENTS CHECK
 ===============================
 
-[] Seed 2 users
-[] Seed 2 roles
-[] Add DTOs all entities
-[] Add Swagger JWT support
-[] Add filtering via query params
-[] Add nested endpoints
-[] Ensure API uses only DTOs
-[] Ensure client uses only HTTP requests
+[x] Seed 2 users
+[x] Seed 2 roles
+[x] Add DTOs all entities
+[x] Add Swagger JWT support
+[x] Add filtering via query params
+[x] Add nested endpoints
+[x] Ensure API uses only DTOs
+[x] Ensure client uses only HTTP requests
 
 ===============================
 TESTING
 ===============================
 
-[] Test all endpoints in Postman
-[] Export Postman collection
+[x] Test all endpoints in Postman
+[x] Export Postman collection
 
 ===============================
 DELIVERY

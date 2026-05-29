@@ -96,7 +96,9 @@ namespace Pri.Ee.Core.Services.Implementations
                 Id = b.Id,
                 Title = b.Title,
                 Description = b.Description,
-                AuthorName = b.Author.Name
+                AuthorName = b.Author.Name,
+                AuthorId = b.AuthorId,
+                CategoryId = b.CategoryId
             }).ToList();
         }
     }

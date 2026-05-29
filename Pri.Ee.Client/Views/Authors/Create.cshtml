@@ -4,11 +4,14 @@
 
 <div class="form-card">
 
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <form method="post">
 
         <div class="mb-3">
             <label class="form-label">Name</label>
             <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-create-custom w-100">
@@ -29,3 +32,7 @@
 <a href="/Authors" class="btn btn-back mt-4">
     ← Back to Authors
 </a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

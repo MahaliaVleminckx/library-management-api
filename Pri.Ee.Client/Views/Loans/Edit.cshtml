@@ -1,30 +1,19 @@
-﻿@model Pri.Ee.Client.Models.Loans.CreateLoanViewModel
+﻿@model Pri.Ee.Client.Models.Loans.UpdateLoanViewModel
 
 <h2 class="page-title mb-4">Edit Loan</h2>
 
 <div class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <form method="post">
 
         <div class="mb-3">
-            <label class="form-label">Book Id</label>
-            <input asp-for="BookId" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">User Id</label>
-            <input asp-for="UserId" class="form-control" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Loan Date</label>
-            <input asp-for="LoanDate" type="date" class="form-control" />
-        </div>
-
-        <div class="mb-3">
             <label class="form-label">Return Date</label>
             <input asp-for="ReturnDate" type="date" class="form-control" />
+            <span asp-validation-for="ReturnDate" class="text-danger"></span>
         </div>
+
+        <input type="hidden" asp-for="LoanDate" />
 
         <button type="submit" class="btn btn-edit-custom w-100">
             Save Changes
@@ -34,7 +23,14 @@
 
 </div>
 
-<a href="/Loans" class="btn btn-back mt-4">
+<a asp-controller="Loans" asp-action="Index" class="btn btn-back mt-4">
     ← Back to Loans
 </a>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
 

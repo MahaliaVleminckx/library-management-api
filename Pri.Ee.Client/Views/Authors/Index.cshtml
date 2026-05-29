@@ -1,6 +1,11 @@
 ﻿@model List<Pri.Ee.Client.Models.Authors.AuthorViewModel>
+@using System.Security.Claims
 
 <h2 class="page-title mb-4">Authors</h2>
+
+@{
+    var isAdmin = User.IsInRole("Admin");
+}
 
 <div class="table-container">
 
@@ -30,18 +35,19 @@
                            href="/Authors/Details/@author.Id">
                             Details
                         </a>
+                        @if (isAdmin)
+                        {
+                            <a class="btn btn-sm btn-action btn-edit-custom"
+                               href="/Authors/Edit/@author.Id">
+                                Edit
+                            </a>
 
-                        <a class="btn btn-sm btn-action btn-edit-custom"
-                           href="/Authors/Edit/@author.Id">
-                            Edit
-                        </a>
-
-                        <a class="btn btn-sm btn-action btn-delete-custom"
-                           href="/Authors/Delete/@author.Id"
-                           onclick="return confirm('Are you sure?')">
-                            Delete
-                        </a>
-
+                            <a class="btn btn-sm btn-action btn-delete-custom"
+                               href="/Authors/Delete/@author.Id"
+                               onclick="return confirm('Are you sure?')">
+                                Delete
+                            </a>
+                        }
                     </td>
                 </tr>
             }
@@ -51,11 +57,15 @@
 
 </div>
 
+@if (isAdmin)
+{
 <p>
     <a class="btn btn-create-custom mt-3"
        href="/Authors/Create">
         + Create New Author
     </a>
+    
 </p>
+}
 
 

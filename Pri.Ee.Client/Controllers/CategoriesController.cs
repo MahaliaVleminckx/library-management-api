@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Pri.Ee.Client.Models.Books;
 using Pri.Ee.Client.Models.Categories;
 using Pri.Ee.Client.Services;
@@ -26,10 +27,13 @@ namespace Pri.Ee.Client.Controllers
             return View(categories);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateCategoryViewModel model)
         {
@@ -47,6 +51,9 @@ namespace Pri.Ee.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [Authorize(Roles = "Admin")]
+
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoryService.GetById(id);
@@ -57,9 +64,13 @@ namespace Pri.Ee.Client.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Admin")]
+
         [HttpPost]
         public async Task<IActionResult> Edit(int id, CreateCategoryViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
             var success = await _categoryService.Update(id, model);
 
             if (!success)
@@ -70,6 +81,7 @@ namespace Pri.Ee.Client.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var success = await _categoryService.Delete(id);

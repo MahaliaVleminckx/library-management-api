@@ -3,12 +3,14 @@
 <h2 class="page-title mb-4">Edit Category</h2>
 
 <div class="form-card">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <form method="post">
 
         <div class="mb-3">
             <label class="form-label">Name</label>
             <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
         <button type="submit" class="btn btn-edit-custom w-100">
@@ -22,3 +24,7 @@
 <a href="/Categories" class="btn btn-back mt-4">
     ← Back to Categories
 </a>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

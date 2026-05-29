@@ -1,6 +1,12 @@
 ﻿@model List<Pri.Ee.Client.Models.Categories.CategoryViewModel>
+@using System.Security.Claims
 
 <h2 class="page-title mb-4">Categories</h2>
+
+@{
+    var isAdmin = User.IsInRole("Admin");
+}
+
 
 <div class="table-container">
 
@@ -31,16 +37,19 @@
                             Details
                         </a>
 
-                        <a class="btn btn-sm btn-action btn-edit-custom"
-                           href="/Categories/Edit/@category.Id">
-                            Edit
-                        </a>
+                        @if (isAdmin)
+                        {
+                            <a class="btn btn-sm btn-action btn-edit-custom"
+                               href="/Categories/Edit/@category.Id">
+                                Edit
+                            </a>
 
-                        <a class="btn btn-sm btn-action btn-delete-custom"
-                           href="/Categories/Delete/@category.Id"
-                           onclick="return confirm('Are you sure?')">
-                            Delete
-                        </a>
+                            <a class="btn btn-sm btn-action btn-delete-custom"
+                               href="/Categories/Delete/@category.Id"
+                               onclick="return confirm('Are you sure?')">
+                                Delete
+                            </a>
+                        }
 
                     </td>
                 </tr>
@@ -50,10 +59,12 @@
     </table>
 
 </div>
-
+@if (isAdmin)
+{
 <p>
     <a class="btn btn-create-custom mt-3"
        href="/Categories/Create">
         + Create New Category
     </a>
 </p>
+}

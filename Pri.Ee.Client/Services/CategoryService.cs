@@ -52,6 +52,7 @@ namespace Pri.Ee.Client.Services
             return response.IsSuccessStatusCode;
         }
 
+
         public async Task<bool> Update(int id, CreateCategoryViewModel cat)
         {
             var token = _contextAccessor.HttpContext.Session.GetString("JWT");
